@@ -64,6 +64,10 @@ def auth_ajax(request):
         return HttpResponseRedirect(reverse('auth_login'))
     user = request.POST.get("user")
     pwd = request.POST.get("password")
+    if not User.objects.filter(username=user):
+        res['success'] = False
+        res["message"] = "用户不存在"
+        return JsonResponse(res)
     user_obj = auth.authenticate(username=user, password=pwd)
     if not user_obj:
         res['success'] = False

@@ -16,14 +16,14 @@
         <i class="layui-icon layui-icon-spread-left"></i>
       </li>
 
-      <li class="layui-nav-item layui-hide-xs"><a href="">搜索</a></li>
-      <li class="layui-nav-item layui-hide-xs"><a href="">商品信息</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="">主页</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="">历史记录</a></li>
       <li class="layui-nav-item layui-hide-xs"><a href="">加入购物车</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item layui-hide layui-show-md-inline-block">
         <a href="javascript:;">
-          <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+          <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1628069152&t=ba6914d532fc6c281ba86377d0e0f067" class="layui-nav-img">
             {{request.user}}
         </a>
         <dl class="layui-nav-child">
@@ -37,9 +37,15 @@
       </li>
     </ul>
   </div>
-  {% block body %}
-    <div>这里是默认内容，所有继承自这个模板的，如果不覆盖就显示这里的默认内容。</div>
+
+  {% block left %}
+    <div>左侧边栏</div>
   {% endblock %}
+
+  {% block body %}
+    <div>页面body内容</div>
+  {% endblock %}
+
 </div>
 <script src="/static/layui/layui.js"></script>
 <script>
@@ -52,5 +58,10 @@ layui.use(['element', 'layer', 'util', 'form','jquery'], function(){
   ,form = layui.form;
 });
 </script>
+
+{% block js %}
+  <div>页面js</div>
+{% endblock %}
+
 </body>
 </html>
