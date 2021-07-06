@@ -38,7 +38,7 @@
                     </div>
                     <div class="layui-form-item">
                         <div style="padding: 10px 0px 0px 270px;">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">获取</button>
+                        <button class="layui-btn" lay-submit lay-filter="search">获取</button>
                         </div>
                     </div>
                 </form>
@@ -55,8 +55,8 @@ layui.use(['form','jquery','layer'],function(){
     var form = layui.form;
     var layer = layui.layer;
     $ = layui.jquery ;
-    form.on('submit(formDemo)',function(data){
-        var loading = layer.load(0,{offset: ['40%','50%'],shade: [0.1,'#3595CC'],area: ['10%','10%']});
+    form.on('submit(search)',function(data){
+        var loading = layer.load(2,{offset: ['40%','50%'],shade: [0.1,'#3595CC'],area: ['10%','10%']});
          $.ajax({
             url:'/search/',
             type:'post',
@@ -71,8 +71,9 @@ layui.use(['form','jquery','layer'],function(){
                 }
             },
             error:function (data){
-              console.log(data)
-              layer.alert("未知错误", {icon: 5});
+                layer.close(loading)
+                console.log(data)
+                layer.alert("未知错误", {icon: 5});
             }
         })
         return false;

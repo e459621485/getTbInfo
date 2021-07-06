@@ -23,7 +23,8 @@ def jump_homepage(request):
 def search(request):
     print(request)
     url = request.POST.get('url')
-    time.sleep(3)
+    time.sleep(1)
     return JsonResponse({"success": True, "message": url})
 
 # Create your views here.
+
