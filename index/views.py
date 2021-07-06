@@ -64,6 +64,7 @@ def search(request):
     return JsonResponse(res)
 
 
+@login_required
 def result(request):
     context = {
         'result': tbInfo.objects.values().last(),
@@ -72,6 +73,7 @@ def result(request):
     return render(request, "index/result.html", context)
 
 
+@login_required
 def result_id(request, id):
     context = {
         'result': tbInfo.objects.values().filter(id=id),
