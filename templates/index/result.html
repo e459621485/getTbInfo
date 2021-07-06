@@ -1,6 +1,6 @@
 {% extends 'index/base.html' %}
 
-{% block title %}搜索{% endblock %}
+{% block title %}详细信息{% endblock %}
 
 {% block left %}
     <div class="layui-side layui-bg-black">
@@ -8,7 +8,7 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree" lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">详细信息</a>
+          <a class="" href="javascript:;">主页</a>
           <dl class="layui-nav-child">
             <dd><a href="{% url 'index_homepage' %}">搜索</a></dd>
             <dd><a href="{% url 'index_result' %}">详细信息</a></dd>
@@ -37,7 +37,8 @@
                         <div class="layui-panel" style="height: 260px">
                           <div style="padding: 30px;">
                               <div class="layui-row layui-font-16" style="padding: 10px">
-                                  <div style="font-weight: bold">宝贝名称：</div>{{ result.title }}
+                                  <div style="font-weight: bold">宝贝名称：</div>
+                                  <a href="{{ result.url }}" target="view_window">{{ result.title }}</a>
                               </div>
                               <div class="layui-row layui-font-16" style="padding: 10px">
                                   <div style="font-weight: bold">价格：</div>{{ result.price }}

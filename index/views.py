@@ -3,11 +3,11 @@ import requests
 import re
 import json
 import urllib.parse
+from datetime import datetime
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth
-from user_auth.models import UserInfo as User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.decorators import csrf
@@ -34,12 +34,15 @@ def search(request):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
     }
     response = req_session.get(url, headers=headers, verify=False, timeout=5)
+    response_text = response.text.replace('\n', '').replace('\r', '').replace(" ", '')
     try:
         if "taobao" in url:
-            title = re.search(r'.*tb-main-title.*\s(.*)', response.text).group(1).strip()
+            goods_match = re.search(r'item:{(.*?)},', response_text)
+            response_text = goods_match.group(1)
+            title = re.search(r"title:'(.*?)',", response_text).group(1).encode('latin-1').decode('unicode_escape')
+            img = re.search(r"pic:'(.*?)',", response_text).group(1)
             price = re.search(r'tb-rmb-num">(.*?)<', response.text).group(1)
-            seller = re.search(r'.*tb-seller-name.*\s(.*)', response.text).group(1).strip()
-            img = re.search(r'.*J_ImgBooth"\s.*src="(.*?)"', response.text).group(1)
+            seller = re.search(r"sellerNick:'(.*?)',", response_text).group(1)
             res = {"success": True, "message": '获取淘宝数据成功'}
         elif "tmall" in url:
             goods_match = re.search(r'"itemDO":{(.*?)}', response.text)
@@ -57,29 +60,58 @@ def search(request):
             price=price,
             seller=seller,
             img=img,
+            url=url,
+            owner_id=request.user.id,
         )
         tb_info.save()
     except Exception as e:
+        print(e)
         res = {"success": False, "message": '获取数据失败啦，换个url试试吧'}
     return JsonResponse(res)
 
 
 @login_required
 def result(request):
+    result = tbInfo.objects.values().filter(owner=request.user.id).last()
     context = {
-        'result': tbInfo.objects.values().last(),
+        'result': result,
     }
-
+    if not result:
+        return render(request, "index/error.html", context)
     return render(request, "index/result.html", context)
 
 
 @login_required
 def result_id(request, id):
+    result = tbInfo.objects.values().filter(owner=request.user.id, id=int(id)).last()
     context = {
-        'result': tbInfo.objects.values().filter(id=id),
+        'result': result,
     }
-
+    if not result:
+        return render(request, "index/error.html", context)
     return render(request, "index/result.html", context)
+
+
+@login_required
+def history(request):
+    context = {
+        "url": reverse("index_history_data"),
+    }
+    return render(request, "index/history.html", context)
+
+
+@login_required
+def history_data(request):
+    datas = list(tbInfo.objects.values().filter(owner=request.user.id).all())
+    for data in datas:
+        data["datetime"] = data["datetime"].strftime('%Y-%m-%d %H:%M:%S')
+    res = {
+        "code": 0,
+        "msg": "",
+        "count": len(datas),
+        "data": datas
+    }
+    return JsonResponse(res)
 
 # Create your views here.
 

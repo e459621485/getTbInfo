@@ -3,6 +3,7 @@ import re
 import json
 import time
 import urllib.parse
+from index.models import tbInfo
 
 
 requests.packages.urllib3.disable_warnings()
@@ -17,14 +18,17 @@ def search():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
     }
     response = req_session.get(url, headers=headers, verify=False, timeout=5)
-    print(response.text)
+    response_text = response.text.replace('\n', '').replace('\r', '').replace(" ", '')
+    # print(response.text)
     s = '<strong id="J_StrPrice"><em class="tb-rmb">&yen;</em><em class="tb-rmb-num">58.00</em></strong>'
     if "taobao" in url:
-        title = re.search(r'.*tb-main-title.*\s(.*)', response.text).group(1).strip()
+        goods_match = re.search(r'item:{(.*?)},', response_text)
+        response_text = goods_match.group(1)
+        print(goods_match.group(1))
+        title = re.search(r"title:'(.*?)',", response_text).group(1).encode('latin-1').decode('unicode_escape')
+        img = re.search(r"pic:'(.*?)',", response_text).group(1)
         price = re.search(r'tb-rmb-num">(.*?)<', response.text).group(1)
-        seller = re.search(r'.*tb-seller-name.*\s(.*)', response.text).group(1).strip()
-        img = re.search(r'.*J_ImgBooth"\s.*src="(.*?)"', response.text).group(1)
-        # print(img)
+        seller = re.search(r"sellerNick:'(.*?)',", response_text).group(1)
     elif "tmall" in url:
         goods_match = re.search(r'"itemDO":{(.*?)}', response.text)
         data = json.loads('{' + goods_match.group(1) + '}')
@@ -35,4 +39,7 @@ def search():
 
 
 
-search()
+# search()
+
+list = tbInfo.objects.values().all()
+print(list)

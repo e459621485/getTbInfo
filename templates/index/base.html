@@ -10,14 +10,14 @@
 <body>
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo layui-hide-xs layui-bg-black">搜索淘宝商品</div>
+    <div class="layui-logo layui-hide-xs layui-bg-black">获取商品信息</div>
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
         <i class="layui-icon layui-icon-spread-left"></i>
       </li>
 
-      <li class="layui-nav-item layui-hide-xs"><a href="">主页</a></li>
-      <li class="layui-nav-item layui-hide-xs"><a href="">历史记录</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="{% url 'index_homepage' %}">主页</a></li>
+      <li class="layui-nav-item layui-hide-xs"><a href="{% url 'index_history' %}">历史记录</a></li>
       <li class="layui-nav-item layui-hide-xs"><a href="">加入购物车</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right">

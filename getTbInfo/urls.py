@@ -27,8 +27,10 @@ urlpatterns = [
     path('auth_user/', auth_view.auth_ajax, name='auth_auth_user'),
     path('homepage/', index_view.homepage, name='index_homepage'),
     path('search/', index_view.search, name='index_search'),
-    path('result/', index_view.result, name='index_result'),
     path('result/<int:id>/', index_view.result_id, name='index_result_id'),
+    path('result/', index_view.result, name='index_result'),
+    path('history/', index_view.history, name='index_history'),
+    path('history_data/', index_view.history_data, name='index_history_data'),
     re_path(r'.*', index_view.jump_homepage, name='index_jump_homepage'),
 ]
 

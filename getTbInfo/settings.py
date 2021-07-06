@@ -80,7 +80,7 @@ DATABASES = {
     'default':
     {
         'ENGINE': 'django.db.backends.mysql',    # 数据库引擎
-        'NAME': 'tb_test', # 数据库名称
+        'NAME': 'test', # 数据库名称
         'HOST': '127.0.0.1', # 数据库地址，本机 ip 地址 127.0.0.1
         'PORT': 3306, # 端口
         'USER': 'root',  # 数据库用户名
@@ -113,13 +113,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -141,7 +141,7 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder"
 )
 
-AUTH_USER_MODEL = "user_auth.UserInfo"
+# AUTH_USER_MODEL = "user_auth.UserInfo"
 
 LOGIN_URL = "/login/"
 

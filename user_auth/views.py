@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib import auth
-from user_auth.models import UserInfo as User
+from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from django.views.decorators import csrf
