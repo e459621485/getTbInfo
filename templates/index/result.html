@@ -1,0 +1,35 @@
+{% extends 'index/base.html' %}
+
+{% block title %}搜索{% endblock %}
+
+{% block left %}
+    <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree" lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">详细信息</a>
+          <dl class="layui-nav-child">
+            <dd><a href="{% url 'index_homepage' %}">搜索</a></dd>
+            <dd><a href="{% url 'index_result' %}">详细信息</a></dd>
+          </dl>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body %}
+    <div class="layui-body">
+      <div class="layui-container layui-row">
+        <div style="padding: 250px 10px 10px 10px;">
+            <div class="layui-col-md6 layui-col-md-offset2">
+                {{ result.title }}, {{ result.price}}, {{ result.seller }}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

@@ -11,7 +11,7 @@
           <a class="" href="javascript:;">主页</a>
           <dl class="layui-nav-child">
             <dd><a href="{% url 'index_homepage' %}">搜索</a></dd>
-            <dd><a href="javascript:;">详细信息</a></dd>
+            <dd><a href="{% url 'index_result' %}">详细信息</a></dd>
           </dl>
       </ul>
     </div>
@@ -33,7 +33,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品url</label>
                         <div class="layui-input-block">
-                        <input type="text" name="url" required lay-verify="required|url" placeholder="请输入商品url" autocomplete="off" class="layui-input" value=http://www.baidu.com>
+                        <input type="text" name="url" required lay-verify="required|url" placeholder="请输入商品url" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">

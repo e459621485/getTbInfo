@@ -27,6 +27,7 @@ urlpatterns = [
     path('auth_user/', auth_view.auth_ajax, name='auth_auth_user'),
     path('homepage/', index_view.homepage, name='index_homepage'),
     path('search/', index_view.search, name='index_search'),
+    path('result/', index_view.result, name='index_result'),
     re_path(r'.*', index_view.jump_homepage, name='index_jump_homepage'),
 ]
 
