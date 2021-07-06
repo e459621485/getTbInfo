@@ -10,7 +10,7 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">主页</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">搜索</a></dd>
+            <dd><a href="{% url 'index_homepage' %}">搜索</a></dd>
             <dd><a href="javascript:;">详细信息</a></dd>
           </dl>
       </ul>
@@ -33,7 +33,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">商品url</label>
                         <div class="layui-input-block">
-                        <input type="text" name="user" required lay-verify="required|url" placeholder="请输入商品url" autocomplete="off" class="layui-input">
+                        <input type="text" name="url" required lay-verify="required|url" placeholder="请输入商品url" autocomplete="off" class="layui-input" value=http://www.baidu.com>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -49,5 +49,34 @@
 {% endblock %}
 
 {% block js %}
-
+<script>
+//Demo
+layui.use(['form','jquery','layer'],function(){
+    var form = layui.form;
+    var layer = layui.layer;
+    $ = layui.jquery ;
+    form.on('submit(formDemo)',function(data){
+        var loading = layer.load(0,{offset: ['40%','50%'],shade: [0.1,'#3595CC'],area: ['10%','10%']});
+         $.ajax({
+            url:'/search/',
+            type:'post',
+            data:data.field,
+            dataType:'json',
+            success:function(data){
+                layer.close(loading)
+                if (data.success) {
+                  layer.alert(data.message, {icon: 6});
+                }else {
+                  layer.alert(data.message, {icon: 5});
+                }
+            },
+            error:function (data){
+              console.log(data)
+              layer.alert("未知错误", {icon: 5});
+            }
+        })
+        return false;
+    });
+});
+</script>
 {% endblock %}
