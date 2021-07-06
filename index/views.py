@@ -71,5 +71,13 @@ def result(request):
 
     return render(request, "index/result.html", context)
 
+
+def result_id(request, id):
+    context = {
+        'result': tbInfo.objects.values().filter(id=id),
+    }
+
+    return render(request, "index/result.html", context)
+
 # Create your views here.
 

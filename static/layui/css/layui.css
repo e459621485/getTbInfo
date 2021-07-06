@@ -3219,6 +3219,13 @@ body .layui-table-tips .layui-layer-content {
 	padding: 10px 0px 10px 0px;
 	border-radius:30%
 }
+.layui-result-img {
+	width:200px;
+	height:200px;
+	/*margin-right:10px;*/
+	/*padding: 10px 0px 10px 0px;*/
+	/*border-radius:30%*/
+}
 .layui-nav .layui-nav-more {
 	position:absolute;
 	top:0;

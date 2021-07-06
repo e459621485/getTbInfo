@@ -28,6 +28,7 @@ urlpatterns = [
     path('homepage/', index_view.homepage, name='index_homepage'),
     path('search/', index_view.search, name='index_search'),
     path('result/', index_view.result, name='index_result'),
+    path('result/<int:id>/', index_view.result_id, name='index_result_id'),
     re_path(r'.*', index_view.jump_homepage, name='index_jump_homepage'),
 ]
 

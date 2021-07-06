@@ -21,9 +21,43 @@
 {% block body %}
     <div class="layui-body">
       <div class="layui-container layui-row">
-        <div style="padding: 250px 10px 10px 10px;">
-            <div class="layui-col-md6 layui-col-md-offset2">
-                {{ result.title }}, {{ result.price}}, {{ result.seller }}
+        <div style="padding: 150px 10px 10px 10px;">
+            <div class="layui-col-md9">
+                <div class="layui-tab-content layui-border layui-bg-gray" style="padding: 15px">
+                    <div class="layui-tab-item layui-show" id="docDemoView1">
+                        <div class="layui-row layui-col-space15">
+                      <div class="layui-col-md4">
+                        <div class="layui-panel">
+                          <div style="padding: 30px;">
+                              <img src="{{ result.img }}" class="layui-result-img">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="layui-col-md8">
+                        <div class="layui-panel" style="height: 260px">
+                          <div style="padding: 30px;">
+                              <div class="layui-row layui-font-16" style="padding: 10px">
+                                  <div style="font-weight: bold">宝贝名称：</div>{{ result.title }}
+                              </div>
+                              <div class="layui-row layui-font-16" style="padding: 10px">
+                                  <div style="font-weight: bold">价格：</div>{{ result.price }}
+                              </div>
+                              <div class="layui-row layui-font-16" style="padding: 10px">
+                                  <div style="font-weight: bold">商家：</div>{{ result.seller }}
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+<!--                <div class="layui-panel">-->
+<!--                    <div style="padding: 50px 30px;">-->
+<!--                        <a href="javascript:;">-->
+<!--                    <img src="{{ result.img }}" class="layui-result-img">-->
+<!--                </a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
