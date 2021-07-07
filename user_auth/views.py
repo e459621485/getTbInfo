@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
+from user_auth.valid_code import ValidCodeImg
 from django.views.decorators import csrf
 
 
@@ -19,15 +20,8 @@ def reg(request):
 
 
 def login(request):
-    context = {
-        "title": "登陆",
-        "action": reverse('auth_auth_user'),
-        "sub_text": "登陆",
-        "jump": reverse('auth_reg'),
-        "jump_text": "去注册",
-        "homepage": reverse('index_homepage'),
-    }
-    return render(request, "user_auth/user_auth.html", context)
+    context = {}
+    return render(request, "user_auth/login.html", context)
 
 
 def add_user(request):
@@ -64,6 +58,11 @@ def auth_ajax(request):
         return HttpResponseRedirect(reverse('auth_login'))
     user = request.POST.get("user")
     pwd = request.POST.get("password")
+    captcha = request.POST.get("captcha")
+    if captcha.upper() != request.session.get('valid_code').upper():
+        res['success'] = False
+        res["message"] = "验证码错误"
+        return JsonResponse(res)
     if not User.objects.filter(username=user):
         res['success'] = False
         res["message"] = "用户不存在"
@@ -100,5 +99,16 @@ def add_ajax(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse("auth_login"))
+
+
+def auth1(request):
+    return render(request, "user_auth/login.html")
+
+
+def get_valid_code_img(request):
+    obj = ValidCodeImg()
+    img_data, valid_code = obj.getValidCodeImg()
+    request.session['valid_code'] = valid_code
+    return HttpResponse(img_data)
 
 # Create your views here.

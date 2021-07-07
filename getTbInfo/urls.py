@@ -31,9 +31,6 @@ urlpatterns = [
     path('result/', index_view.result, name='index_result'),
     path('history/', index_view.history, name='index_history'),
     path('history_data/', index_view.history_data, name='index_history_data'),
-    re_path(r'.*', index_view.jump_homepage, name='index_jump_homepage'),
+    path('ValidCodeImg/', auth_view.get_valid_code_img, name='get_valid_img'),
+    # re_path(r'.*', index_view.jump_homepage, name='index_jump_homepage'),
 ]
-
-
-if __name__ == "__main__":
-    print(urlpatterns)
