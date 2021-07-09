@@ -22,7 +22,7 @@
 <div class="layui-body">
     <div class="layui-container layui-row">
         <div class="layui-col-md10">
-            <table class="layui-table" lay-data="{height: 'full-200', cellMinWidth: 80, url:{{ url }}, page:true, id:'idTest'}" lay-filter="demo">
+            <table class="layui-table" lay-data="{height: 'full-200', cellMinWidth: 80, url:{{ url }}, page:{layout:['prev', 'page', 'next', 'count'], limit: 15}, id:'idTest'}" lay-filter="demo">
                 <thead>
                     <tr>
                       <th lay-data="{field:'id', sort: true, width:60}">ID</th>

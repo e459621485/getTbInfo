@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.views.decorators import csrf
 from django.urls import reverse
 from index.models import tbInfo
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
@@ -102,14 +103,24 @@ def history(request):
 
 @login_required
 def history_data(request):
-    datas = list(tbInfo.objects.values().filter(owner=request.user.id).all())
-    for data in datas:
-        data["datetime"] = data["datetime"].strftime('%Y-%m-%d %H:%M:%S')
+    page = request.GET.get('page')
+    limit = request.GET.get('limit')
+    all_datas = list(tbInfo.objects.values().filter(owner=request.user.id).all())
+    paginator = Paginator(all_datas, limit)
+    try:
+        datas = paginator.page(page)
+    except PageNotAnInteger:
+        datas = paginator.page(1)
+    except EmptyPage:
+        datas = paginator.page(paginator.num_pages)
+    if datas:
+        for data in datas:
+            data["datetime"] = data["datetime"].strftime('%Y-%m-%d %H:%M:%S')
     res = {
         "code": 0,
         "msg": "",
-        "count": len(datas),
-        "data": datas
+        "count": len(all_datas),
+        "data": list(datas),
     }
     return JsonResponse(res)
 
